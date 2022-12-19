@@ -14,7 +14,7 @@ function rectangularCollision({rect1, rect2}) {
 
 
 
-let timer = 5
+let timer = 60
 let timerId
 
 const displayText = document.querySelector('#displayText')

@@ -11,11 +11,25 @@ const speed = 15;
 const background = new Sprite({
     position: {
         x: 0,
-        y: 0
+        y: 250
     },
     
-    imageSrc: '/Assets/Sprites/background.gif'
+    imageSrc: '/Assets/Sprites/background.gif',
+    scale: 2.8,
+    framesMax: 1
 })
+
+
+const shop = new Sprite({
+    position: {
+        x: 1600,
+        y: 600,
+    },
+    imageSrc: '/Assets/Sprites/shop.png',
+    scale: 4,
+    framesMax: 6
+})
+
 
 const player = new Fighter({ 
     position: {
@@ -79,6 +93,7 @@ function animate() {
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height);
     background.update();
+    shop.update();
     player.update();
     enemy.update();
 
