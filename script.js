@@ -126,24 +126,6 @@ enemy.draw();
 
 console.log(player);
 
-
-function checkDeath() {
-    if(player.health <= 0){
-        alert("GAME OVER !!! player has died")
-        if(comfirm("do you want to try again")) {
-            location.reload();
-        } else {
-            alert("you are a coward !!!")
-        }
-    }
-    if (enemy.health <= 0){
-        alert("GAME OVER !!! enemy has died")
-        if(confirm("you are to overpowered !!! do you want to humiliate the enemy again")) {
-            location.reload();
-        }
-    }
-}
-
 function rectangularCollision({rect1, rect2}) {
     return (
         rect1.attackBox.position.x + 
@@ -160,14 +142,43 @@ function rectangularCollision({rect1, rect2}) {
 
 
 
-let timer = 3
+let timer = 5
+let timerId
+
+const displayText = document.querySelector('#displayText')
+const displayTextStyle = document.querySelector('#displayText').style
+const displayTimer = document.querySelector('#timer')
+
+
+function pickAWinner({ player, enemy, timerId }){
+    clearTimeout(timerId)
+    displayTextStyle.display = "flex"
+    if(player.health === enemy.health){
+        displayTimer.innerHTML = 'Draw'
+        displayText.innerHTML = 'REMATCH !!!'
+    } else if (player.health > enemy.health){
+        displayText.innerHTML = 'Player Won!'
+    } else if (enemy.health > player.health){
+        displayText.innerHTML = 'Enemy Won!'
+    }
+}
 
 function decreaseTimer() {
     if (timer > 0) {
-        setTimeout(decreaseTimer, 1000)
+        timerId = setTimeout(decreaseTimer, 1000)
         timer--
-        document.querySelector('#timer').innerHTML = timer
+        displayTimer.innerHTML = timer
     }
+
+    // 1 = set a value 
+    // 2 == checks of the value is equal 
+    // 3 === checks if the value and the type is equal
+
+    if(timer === 0)
+    {
+        pickAWinner({player, enemy, timerId})
+    }
+
 }
 
 decreaseTimer()
@@ -207,7 +218,7 @@ function animate() {
         player.isAttacking = false;
         enemy.health -= 20;
         document.querySelector("#enemyHealth").style.width = enemy.health + '%';
-        checkDeath()
+
     }
 
     if (
@@ -219,7 +230,11 @@ function animate() {
         enemy.isAttacking = false;
         player.health -= 20;
         document.querySelector("#playerHealth").style.width = player.health + '%' ;
-        checkDeath()
+
+    }
+
+    if (enemy.health <= 0 || player.health <= 0){
+        pickAWinner({player, enemy, timerId})
     }
 
     
