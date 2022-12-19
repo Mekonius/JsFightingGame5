@@ -1,17 +1,20 @@
 class Sprite {
-    constructor({position}) {
-        this.position = position;
-        this.height = 150;
-        this.width = 50;
+    constructor({ position, imageSrc }) {
+      this.position = position;
+      this.height = 150;
+      this.width = 50;
+      this.image = new Image();
+      this.image.src = imageSrc;
     }
-
+  
     draw() {
+      c.drawImage(this.image, this.position.x, this.position.y);
     }
-
+  
     update() {
-        this.draw();
+      this.draw();
     }
-}
+  }
 
 class Fighter {
     constructor({position, velocity, color, offset}) {
@@ -54,7 +57,7 @@ class Fighter {
         this.position.y += this.velocity.y;
         this.position.x += this.velocity.x;
 
-        if (this.position.y + this.height + this.velocity.y >= canvas.height) {
+        if (this.position.y + this.height + this.velocity.y >= canvas.height - 590) {
             this.velocity.y = 0;
         } else {
             this.velocity.y += gravity;
