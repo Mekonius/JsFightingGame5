@@ -1,25 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div style="position: relative; display: inline-block">
+        <!-- smaller red container div -->
+        <div class="container">
+            <!-- player health -->
+            <div class="healthBar">
+                <div style="background-color: red; height: 30px; width: 100%"></div>
+                <div id="playerHealth"></div>
+            </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS | Fighting Game | Konfu </title>
-</head>
+            <!-- timer -->
+            <div id="timer">
+                10
+            </div>
+            <!-- enemy health -->
+            <div class="healthBar">
+                <div style="background-color: red; height: 30px; width: 100%"></div>
+                <div id="enemyHealth"></div>
+            </div>
+            <div></div>
+        </div>
+        <div id="displayText">
+            Tie
+        </div>
 
-<body>
     <canvas></canvas>
-
-    <script src="index.js"></script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>
-
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: rgba(0, 0, 0, 0.895);
-    }
-</style>
