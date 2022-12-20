@@ -22,8 +22,8 @@ const background = new Sprite({
 
 const shop = new Sprite({
     position: {
-        x: 1600,
-        y: 600,
+        x: 1800,
+        y: 740,
     },
     imageSrc: '/Assets/Sprites/shop.png',
     scale: 4,
@@ -31,7 +31,7 @@ const shop = new Sprite({
 })
 
 
-const player = new Fighter({ 
+const player = new Fighter ({ 
     position: {
         x: 0, 
         y: 0,
@@ -42,9 +42,12 @@ const player = new Fighter({
     },
     offset: {
         x: 0,
-        y: 0
+        y: 610
     },
-    color: 'red'
+    color: 'red',
+    imageSrc: '/Assets/Sprites/player2.png',
+    framesMax: 10,
+    scale: 5,
 });
 
 const keys = {
@@ -80,10 +83,13 @@ const enemy = new Fighter({
         y: 0,
     },
     offset: {
-        x: 50,
-        y: 0
+        x: 0,
+        y: 710,
     },
-    color: 'blue'
+    color: 'blue',
+    imageSrc: '/Assets/Sprites/player1.png',
+    framesMax: 10,
+    scale: 5,
 });
 
 decreaseTimer()
@@ -124,8 +130,23 @@ function animate() {
         player.isAttacking = false;
         enemy.health -= 20;
         document.querySelector("#enemyHealth").style.width = enemy.health + '%';
-
     }
+
+    // wall collosion
+    if (player.position.x < 0) {
+        player.position.x = 0;
+    } else if (player.position.x + player.width > canvas.width) {
+        player.position.x = canvas.width - player.width;
+    }
+
+    if (enemy.position.x < 0) {
+        enemy.position.x = 0;
+    } else if (enemy.position.x + enemy.width > canvas.width) {
+        enemy.position.x = canvas.width - enemy.width;
+    }
+
+
+
 
     if (
         rectangularCollision({
@@ -142,6 +163,7 @@ function animate() {
     if (enemy.health <= 0 || player.health <= 0){
         pickAWinner({player, enemy, timerId})
     }
+    
 
     
 }
